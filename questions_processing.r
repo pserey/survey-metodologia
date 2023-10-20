@@ -4,8 +4,8 @@ data <- read.csv("./survey-v2.csv")
 
 new_header <- c(
   "timestamp", "termo", "cursacc", "periodo",
-  "CPD", "PPA", "IES", "ICA", "ETA",
-  "IAES", "IACA", "EPP", "CH"
+  "CPD", "PPA", "IES", "ICA", "EC",
+  "IAES", "IACA", "IEPP", "CH"
 )
 
 # modifica perguntas para nomes de colunas
@@ -37,8 +37,8 @@ data$CPD <- gsub("Bastante Definida", 4, data$CPD)
 data$CPD <- gsub("Totalmente definida", 5, data$CPD)
 
 # simplifica resposta de expectativa de carreira
-data$ETA <- gsub("Carreira acadêmica", "CA", data$ETA)
-data$ETA <- gsub("Mercado de trabalho", "MT", data$ETA)
-data$ETA <- gsub("Não decidi", "ND", data$ETA)
+data$EC <- gsub("Carreira acadêmica", "CA", data$EC)
+data$EC <- gsub("Mercado de trabalho", "MT", data$EC)
+data$EC <- gsub("Não decidi", "ND", data$EC)
 
 write.csv(data, "pp_survey_v2.csv", row.names = FALSE)
