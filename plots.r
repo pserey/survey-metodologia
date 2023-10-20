@@ -5,10 +5,9 @@ library(ggplot2)
 data <- read.csv("./survey-v2.csv")
 
 new_header <- c(
-                  "timestamp", "termo", "cursacc", "periodo",
-                    "CPD", "PPA", "IES", "ICA", "ETA",
-                    "IAES", "IACA", "EPP", "CH"
-                    
+  "timestamp", "termo", "cursacc", "periodo",
+  "CPD", "PPA", "IES", "ICA", "ETA",
+  "IAES", "IACA", "EPP", "CH"
 )
 
 # modifica perguntas para nomes de colunas
@@ -64,38 +63,39 @@ barplot(table(data$periodo),
 
 # plot de distribuição dos períodos com ggplot2
 ggplot(data, aes(x = periodo, fill = periodo)) +
-      geom_bar(width=0.7) +
-        labs(title = "Distribuição por períodos",
-               x = "Períodos",
-               y = "") +
-                  scale_fill_brewer(palette = "Set1")
+  geom_bar(width=0.7) +
+  labs(title = "Distribuição por períodos",
+       x = "Períodos",
+       y = "") +
+  scale_fill_brewer(palette = "Set1")
 
-              # alteração na coluna PPA
-              new_data <- data %>%
-                    mutate(column_mod = ifelse(data$PPA, 'Sim', 'Não'))
+# alteração na coluna PPA
+new_data <- data %>%
+  mutate(column_mod = ifelse(data$PPA, 'Sim', 'Não'))
 
-                # participou de pesquisa x decisão de carreira
-                ggplot(new_data, aes(x = column_mod, fill = ETA)) +
-                      geom_bar(position = "dodge") +
-                        labs(title = "Mercado ou Academia ?",
-                               x = "Participou de pesquisa",
-                               y = "",
-                               fill = "Escolha") +
-                  scale_fill_brewer(palette = "Set1")ncia do desenvolvimento de habilidades de programação
+# participou de pesquisa x decisão de carreira
+ggplot(new_data, aes(x = column_mod, fill = ETA)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Mercado ou Academia ?",
+       x = "Participou de pesquisa",
+       y = "",
+       fill = "Escolha") +
+  scale_fill_brewer(palette = "Set1")
+
+# importância do desenvolvimento de habilidades de programação
 ggplot(data, aes(x = factor(IES), fill = factor(IES))) +
   geom_bar() +
-  labs(title = "ncia do desenvolvimento de habilidades de programação",
-              x = "",
-                     y = "") +
-                  scale_fill_brewer(palette = "Set1") +
-                    theme(legend.position="none")
-                
-                ggplot(data, aes(x = factor(ICA), fill = factor(ICA))) +
-                      geom_bar() +
-                        labs(title = "ncia no desenvolvimento de habilidades de pesquisa",
-                                    x = "",
-                                           y = "") +
-                  scale_fill_brewer(palette = "Set1") +
-                    theme(legend.position="none")Import")Import"))
+  labs(title = "Importância do desenvolvimento de habilidades de programação",
+       x = "",
+       y = "") +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position="none")
 
-              # import
+#importância no desenvolvimento de habilidades de pesquisa
+ggplot(data, aes(x = factor(ICA), fill = factor(ICA))) +
+  geom_bar() +
+  labs(title = "Importância no desenvolvimento de habilidades de pesquisa",
+       x = "",
+       y = "") +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position="none")
