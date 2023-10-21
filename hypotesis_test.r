@@ -1,15 +1,17 @@
 library(readr)
-library(ggplot2)
 
-data <- read.csv("./pp_survey_v2.csv")
+survey <- read.csv("./pp_survey_v2.csv")
 
-ies_cont_table <- table(data$IES, data$EC)
-ica_cont_table <- table(data$ICA, data$EC)
+data <- subset(survey, EC != "ND")
+data$EC <- ifelse(data$EC == "MT", 1, 0)
 
-ies_chisq <- chisq.test(ies_cont_table)
-ica_chisq <- chisq.test(ica_cont_table)
+hist(data$IES)
+hist(data$ICA)
 
-print("Qui-quadrado para importancia de ES (IES) e expectativa de carreira")
-print(ies_chisq)
-print("Qui-quadrado para importancia de conhecimento academico (ICA) e expectativa de carreira")
-print(ica_chisq)
+model <- glm(EC ~ ICA + IES, data = data, family = "binomial")
+ies_chi <- chisq.test(data$ICA, data$EC)
+ica_chi <- chisq.test(data$IES, data$EC)
+
+print(summary(model))
+print(ies_chi)
+print(ica_chi)
